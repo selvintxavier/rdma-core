@@ -51,6 +51,7 @@
 enum {
 	BNXT_RE_UCNTX_CMASK_HAVE_CCTX = 0x1ULL,
 	BNXT_RE_UCNTX_CMASK_HAVE_MODE = 0x02ULL,
+	BNXT_RE_UCNTX_CMASK_WC_DPI_ENABLED = 0x04ULL,
 };
 
 enum bnxt_re_wqe_mode {
@@ -78,10 +79,17 @@ struct bnxt_re_uctx_resp {
  * not 8 byted aligned. To avoid undesired padding in various cases we have to
  * set this struct to packed.
  */
+enum {
+        BNXT_RE_COMP_MASK_PD_HAS_WC_DPI = 0x01,
+};
+
 struct bnxt_re_pd_resp {
 	__u32 pdid;
 	__u32 dpi;
 	__u64 dbr;
+	__u64 comp_mask;
+	__u32 wcdpi;
+	__u64 wcdbr;
 } __attribute__((packed, aligned(4)));
 
 struct bnxt_re_cq_req {
